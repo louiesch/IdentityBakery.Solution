@@ -21,6 +21,25 @@ namespace IdentityBakery.Controllers
       return View(_db.Treats.ToList());
     }
 
+    public ActionResult Create()
+    {
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "FlavorName");
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Treat treat, int FlavorId)
+    {
+      _db.Treats.Add(treat);
+      _db.SaveChanges();
+      if (FlavorId != 0)
+      {
+        _db.TreatFlavor.Add(new TreatFlavor() {FlavorId = FlavorId, TreatId = treat.TreatId});
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
     public ActionResult Details(int id)
     {
       var thisTreat = _db.Treats
