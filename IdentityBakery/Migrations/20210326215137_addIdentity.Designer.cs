@@ -3,14 +3,16 @@ using System;
 using IdentityBakery.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IdentityBakery.Migrations
 {
     [DbContext(typeof(IdentityBakeryContext))]
-    partial class IdentityBakeryContextModelSnapshot : ModelSnapshot
+    [Migration("20210326215137_addIdentity")]
+    partial class addIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
