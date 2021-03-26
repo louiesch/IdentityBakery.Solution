@@ -20,5 +20,14 @@ namespace IdentityBakery.Controllers
     {
       return View(_db.Treats.ToList());
     }
+
+    public ActionResult Details(int id)
+    {
+      var thisTreat = _db.Treats
+        .Include(treat => treat.JoinEntities)
+        .ThenInclude(join => join.Flavor)
+        .FirstOrDefault(treat => treat.TreatId == id);
+      return View(thisTreat);
+    }
   }
 }
