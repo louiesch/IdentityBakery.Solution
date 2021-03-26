@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using IdentityBakery.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityBakery
 {
@@ -27,12 +28,18 @@ namespace IdentityBakery
       services.AddEntityFrameworkMySql()
         .AddDbContext<IdentityBakeryContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+          .AddEntityFrameworkStores<IdentityBakeryContext>()
+          .AddDefaultTokenProviders();
     }
 
     public void Configure(IApplicationBuilder app)
     {
       app.UseDeveloperExceptionPage();
+      app.UseAuthentication();
       app.UseRouting();
+      app.UseAuthorization();
 
       app.UseEndpoints(routes =>
       {
