@@ -1,4 +1,4 @@
-# _Pierre's Sweet and Savory Treats
+# _Pierre's Sweet and Savory Treats_
 
 #### _Independent coding assignment to get experience using ASP.NET Core MVC and Databases with many-to-many relationships, and Identity to allow users to create an account._
 
