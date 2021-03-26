@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model IdentityBakery.Models.Treat
+
+<h3>Add a new treat</h3>
+
+@using (Html.BeginForm())
+{
+  @Html.Label("Enter treat name: ")
+  @Html.TextBoxFor(model => model.TreatName)
+
+  @Html.Label("Choose a flavor")
+  @Html.DropDownList("FlavorId")
+
+  <input type="submit" value="Add treat" class="btn btn-default"/>
+}
+
+<p>@Html.ActionLink("Show all treats", "Index")</p>
