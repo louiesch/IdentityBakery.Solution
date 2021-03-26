@@ -42,7 +42,7 @@
 
 ### To Run Application
 
-* _Navigate to Factory production folder in terminal_
+* _Navigate to IdentityBakery production folder in terminal_
   > cd IdentityBakery
 
 * _To download obj and bin files needed for the program to run, while still in IdentityBakery folder type into the terminal:_
