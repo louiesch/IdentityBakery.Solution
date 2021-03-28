@@ -6,14 +6,17 @@
 
 ## Technologies Used
 
+* _ASP.NET Core_
 * _C#_
-* _.NET 5_
-* _ASP.NET Core MVC_
 * _dotnet script, REPL_
-* _Razor View Engine_
-* _MySQL and MySQL Workbench_
-* _Git_
+* _Entity Core_
+* _Git and GitHub_
+* _Identity_
 * _Microsoft Entity Framework Core_
+* _MySQL and MySQL Workbench_
+* _.NET 5.0_
+* _Razor View Engine_
+* _REPL_
 
 
 ## Setup/Installation Requirements
