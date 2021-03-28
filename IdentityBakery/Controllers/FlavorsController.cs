@@ -4,15 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 using IdentityBakery.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace IdentityBakery.Controllers
 {
   public class FlavorsController : Controller
   {
     private readonly IdentityBakeryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(IdentityBakeryContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, IdentityBakeryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -22,21 +28,16 @@ namespace IdentityBakery.Controllers
       return View(model);
     }
 
+    [Authorize]
     public ActionResult Create()
     {
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Flavor flavor, int TreatId)
+    public ActionResult Create(Flavor flavor)
     {
       _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      if (TreatId != 0)
-      {
-        _db.TreatFlavor.Add(new TreatFlavor() {TreatId = TreatId, FlavorId = flavor.FlavorId });
-      }
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
@@ -50,6 +51,7 @@ namespace IdentityBakery.Controllers
       return View(thisFlavor);
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -60,15 +62,12 @@ namespace IdentityBakery.Controllers
     [HttpPost]
     public ActionResult Edit(Flavor flavor, int TreatId)
     {
-      if (TreatId != 0)
-      {
-        _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
-      }
       _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult AddTreat(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -87,13 +86,15 @@ namespace IdentityBakery.Controllers
       return RedirectToAction("Index");
     }
 
+
+    [Authorize]
     public ActionResult Delete(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
 
-    [HttpPost]
+    [Authorize, HttpPost]
     public ActionResult DeleteTreat(int joinId)
     {
         var joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
