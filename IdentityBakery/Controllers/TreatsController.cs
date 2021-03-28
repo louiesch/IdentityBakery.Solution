@@ -31,6 +31,7 @@ namespace IdentityBakery.Controllers
       return View(userTreats);
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "FlavorName");
@@ -62,6 +63,7 @@ namespace IdentityBakery.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
@@ -81,6 +83,7 @@ namespace IdentityBakery.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult AddFlavor(int id)
     {
       var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
@@ -99,13 +102,14 @@ namespace IdentityBakery.Controllers
         return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
-    [HttpPost]
+    [Authorize, HttpPost]
     public ActionResult DeleteFlavor(int joinId)
     {
         var joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
