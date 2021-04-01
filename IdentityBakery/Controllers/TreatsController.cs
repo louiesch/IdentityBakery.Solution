@@ -11,7 +11,6 @@ using System.Security.Claims;
 
 namespace IdentityBakery.Controllers
 {
-  [Authorize]
   public class TreatsController : Controller
   {
     private readonly IdentityBakeryContext _db;
